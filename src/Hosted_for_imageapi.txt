@@ -1,6 +1,4 @@
 
-
-
 // -------Begin  import React----------------//
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -119,21 +117,20 @@ class App extends React.Component {   // ---------  App Class -------------//
         let useremail=this.state.useremail
         useremail=user.email
         let uid=user.uid
-       // console.log("user.uid",user.uid)
+        console.log("user.uid",user.uid)
         this.setState({
           user:user,useremail:useremail,uid:uid,
         })
 
-        axios.get("http://localhost:8081/photos?uid="+uid).then(
+        //http://localhost:8081
+
+        axios.get("/photos?uid="+uid).then(
           (res)=>{
           //  let db = this.state.db;
-          console.log("get image from db",res.data[0]) 
+          console.log("get image from db",res.data) 
           console.log("new image",res.data[0].imagepath)
           let image=res.data[0].imagepath
-      //  let image="/electrician.jpg";
-         // image=image.slice(1)
-          
-          // db.photos = res.data;
+         // db.photos = res.data;
             this.setState({
               image:image
             })
@@ -141,7 +138,7 @@ class App extends React.Component {   // ---------  App Class -------------//
         )
 
               // http://localhost:8081
-        axios.get('http://localhost:8081/getuser/'+this.state.useremail).then((res)=>
+        axios.get('/getuser/'+this.state.useremail).then((res)=>
         {
           console.log("get user api",res.data)
           let userobj=res.data
@@ -155,7 +152,7 @@ class App extends React.Component {   // ---------  App Class -------------//
               })
 
               if (this.state.utype=="p") {
-                axios.get('http://localhost:8081/pservice/'+this.state.useremail).then((res)=>
+                axios.get('/pservice/'+this.state.useremail).then((res)=>
           {
             console.log("get professional own services ",res.data)
             let db=this.state.db
@@ -165,7 +162,7 @@ class App extends React.Component {   // ---------  App Class -------------//
           }
 
           else if (this.state.utype=="c") {
-            // axios.get('http://localhost:8081/cservice/'+this.state.ucity).then((res)=>
+            // axios.get('/cservice/'+this.state.ucity).then((res)=>
             // {
             //   console.log("get customer services",res.data)
             //   let db=this.state.db
@@ -247,7 +244,7 @@ console.log(error)
   //  this.props.history.push('/')  
 
   if (this.state.utype=="c") {
-    axios.get('http://localhost:8081/cservice/'+this.state.ucity).then((res)=>
+    axios.get('/cservice/'+this.state.ucity).then((res)=>
     {
       console.log("get customer services",res.data)
       let db=this.state.db
@@ -288,7 +285,7 @@ console.log(error)
     // ...
 
     if (this.state.utype=="p") {
-          axios.get('http://localhost:8081/pservice/'+this.state.useremail).then((res)=>
+          axios.get('/pservice/'+this.state.useremail).then((res)=>
     {
       console.log("get user api",res.data)
       let db=this.state.db
@@ -621,7 +618,7 @@ console.log(error)
     let index=e.target.value
     console.log(res[index])
     let search=res[index]
-    axios.get('http://localhost:8081/particularservice/'+this.state.ucity+'/'+search).then((res)=>
+    axios.get('/particularservice/'+this.state.ucity+'/'+search).then((res)=>
     {
       console.log("get particular services",res.data)
       let db=this.state.db
@@ -645,7 +642,7 @@ console.log(error)
   getcard(e){
     console.log(e.target.value)
     let search=e.target.value
-    axios.get('http://localhost:8081/particularservice/'+this.state.ucity+'/'+search).then((res)=>
+    axios.get('/particularservice/'+this.state.ucity+'/'+search).then((res)=>
     {
       console.log("get particular services",res.data)
       let db=this.state.db
@@ -666,7 +663,7 @@ console.log(error)
   createuser(){
     let obj={uemail:this.state.signupemail,uname:this.state.uname,ucity:this.state.ucity,ustate:this.state.ustate,
             utype:this.state.utype}
-    axios.post('http://localhost:8081/user/',obj)
+    axios.post('/user/',obj)
   .then((res)=>{
   console.log("response from database",res.data)
    })  
@@ -677,7 +674,7 @@ console.log(error)
     let db=this.state.db
     let obj={pemail:this.state.useremail,pname:this.state.uname,pcity:this.state.ucity,pstate:this.state.ustate,
       servicename:this.state.servicename,servicedes:this.state.servicedes,serviceprice:this.state.serviceprice}
-      axios.post('http://localhost:8081/service/',obj)
+      axios.post('/service/',obj)
       .then((res)=>{
       console.log("response from database",res.data)
        })  
@@ -688,7 +685,7 @@ console.log(error)
 
   createpro(){
     let obj={pemail:this.state.signupemail,pname:this.state.uname,pcity:this.state.ucity,pstate:this.state.ustate}
-    axios.post('http://localhost:8081/professional/',obj)
+    axios.post('/professional/',obj)
   .then((res)=>{
   console.log("response from database",res.data)
    })  
@@ -697,7 +694,7 @@ console.log(error)
 
   createcustomer(){
     let obj={cemail:this.state.signupemail,cname:this.state.uname,ccity:this.state.ucity,cstate:this.state.ustate}
-    axios.post('http://localhost:8081/customer/',obj)
+    axios.post('/customer/',obj)
   .then((res)=>{
   console.log("response from database",res.data)
    })  
@@ -708,7 +705,7 @@ console.log(error)
     let obj={pemail:this.state.pemail,cemail:this.state.useremail,
       servicename:this.state.servicename,servicedes:this.state.servicedes,serviceprice:this.state.serviceprice,
     bdate:this.state.bdate,btime:this.state.btime,baddress:this.state.baddress}
-      axios.post('http://localhost:8081/booking/',obj)
+      axios.post('/booking/',obj)
       .then((res)=>{
       console.log("response from database",res.data)
        })  
@@ -727,7 +724,7 @@ console.log(error)
 
   getpbooking(){
 
-axios.get('http://localhost:8081/getpbooking/'+this.state.useremail).then((res)=>
+axios.get('/getpbooking/'+this.state.useremail).then((res)=>
     {
       console.log("get professional booking",res.data)
       let db=this.state.db
@@ -738,7 +735,7 @@ axios.get('http://localhost:8081/getpbooking/'+this.state.useremail).then((res)=
 
   getcbooking(){
 
-    axios.get('http://localhost:8081/getcbooking/'+this.state.useremail).then((res)=>
+    axios.get('/getcbooking/'+this.state.useremail).then((res)=>
         {
           console.log("get Customer booking",res.data)
           let db=this.state.db
@@ -774,13 +771,11 @@ axios.get('http://localhost:8081/getpbooking/'+this.state.useremail).then((res)=
       //    axios.post("/profile",fd,{headers:{
       //     'Content-Type': "multipart/form-data"
       //   }})}}
-
-      
     onChangeHandler(e){
       console.log(e.target.files[0])
       let fd = new FormData()
       fd.append("avatar",e.target.files[0])
-      axios.post("http://localhost:8081/profile",fd,{headers:{
+      axios.post("/profile",fd,{headers:{
            'Content-Type': "multipart/form-data"
            }})
       // let image=e.target.value
@@ -793,7 +788,7 @@ axios.get('http://localhost:8081/getpbooking/'+this.state.useremail).then((res)=
     onClickHandler = () => { 
       let photo={uid:this.state.uid}
 
-      axios.post("http://localhost:8081/photo",photo).then(
+      axios.post("/photo",photo).then(
   (res)=>{
      console.log("res from upload",res.data)
      // this.props.history.push('/gallery')
@@ -854,8 +849,6 @@ axios.get('http://localhost:8081/getpbooking/'+this.state.useremail).then((res)=
   getservicename={this.getservicename.bind(this)}  getservicedes={this.getservicedes.bind(this)} 
    getserviceprice={this.getserviceprice.bind(this)}   createservice={this.createservice.bind(this)}
    getcategory={this.getcategory.bind(this)}    getsubcategory={this.getsubcategory.bind(this)}
-   onChangeHandler={this.onChangeHandler.bind(this)}
-   onClickHandler={this.onClickHandler.bind(this)}
  
 
     ></Addservice>}/>
@@ -925,4 +918,11 @@ export default (App);
 
 
 
-  
+
+
+
+ // getcustomerbooking(){
+  //   axios.get('http://localhost:8081/getcustomerbooking/'+this.state.useremail).then((res)=>
+  //   {console.log(res.data)})
+  //   // console.log(this.state.ucity)
+  // }

@@ -1,8 +1,20 @@
 import React from 'react';
+//import "mdbreact/dist/css/mdb.css";
+
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+//import '../node_modules/bootstrap/dist/css/bootstrap-theme.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import "mdbreact/dist/css/mdb.css";
+
+import App from "./App";
+import Login from "./components/login"
+import Register from "./components/register"
+import Phome from "./components/phome"
 import * as serviceWorker from './serviceWorker';
+import Chome from "./components/chome"
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
